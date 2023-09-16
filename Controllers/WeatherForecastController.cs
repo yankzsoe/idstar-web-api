@@ -2,7 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace idstar_web_api.Controllers {
     [ApiController]
-    [Route("[controller]")]
+    //[Route("[controller]")]
+    [Route("api/cuaca")]
     public class WeatherForecastController : ControllerBase {
         private static readonly string[] Summaries = new[]
         {
@@ -15,7 +16,7 @@ namespace idstar_web_api.Controllers {
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
+        [HttpGet("ramalan")]
         public IEnumerable<WeatherForecast> Get() {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast {
                 Date = DateTime.Now.AddDays(index),

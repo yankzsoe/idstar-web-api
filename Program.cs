@@ -1,3 +1,5 @@
+using Microsoft.Extensions.FileProviders;
+
 namespace idstar_web_api {
     public class Program {
         public static void Main(string[] args) {
@@ -17,6 +19,15 @@ namespace idstar_web_api {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            // Untuk menambahkan middleware pengiriman file statis ke dalam pipeline middleware ASP.NET Core
+            app.UseStaticFiles(new StaticFileOptions {
+                // Ini adalah objek yang memberi tahu ASP.NET Core dari mana file-file statis akan diambil.
+                // Dalam kasus ini, kita menggunakan PhysicalFileProvider, yang mengacu pada lokasi fisik di sistem file.
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Assets")),
+                // Ini adalah path yang digunakan untuk mengakses file-file statis dalam URL
+                RequestPath = "/Assets"
+            });
 
             app.UseHttpsRedirection();
 
