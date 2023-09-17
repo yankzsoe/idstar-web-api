@@ -1,3 +1,5 @@
+using idstar_web_api.Interface;
+using idstar_web_api.Services;
 using Microsoft.Extensions.FileProviders;
 
 namespace idstar_web_api {
@@ -6,6 +8,10 @@ namespace idstar_web_api {
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddSingleton<INumberGenerator, SequenceNumberService>();
+            builder.Services.AddSingleton<ISingletonGenerator, SingletonService>();
+            builder.Services.AddScoped<IScopedGenerator, ScopedService>();
+            builder.Services.AddTransient<ITransientGenerator, SampleTransientService>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

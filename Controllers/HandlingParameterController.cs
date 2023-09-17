@@ -31,7 +31,7 @@ namespace idstar_web_api.Controllers {
 
         public record Student {
             public int Id { get; set; }
-            public string Name { get; set; }
+            public string? Name { get; set; }
             public DateTime Dob { get; set; }
         }
 
@@ -64,7 +64,7 @@ namespace idstar_web_api.Controllers {
         }
 
         public record ImageUploadModel {
-            public IFormFile ImageFile { get; set; }
+            public IFormFile? ImageFile { get; set; }
         }
 
         [HttpPost("UploadImage")]
