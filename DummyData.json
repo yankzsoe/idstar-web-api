@@ -1,0 +1,19 @@
+{
+  "UsersData": [
+    {
+      "Id": 1,
+      "Name": "Jhon Doe",
+      "Address": "South Tangerang"
+    },
+    {
+      "Id": 2,
+      "Name": "Jonathan",
+      "Address": "South Jakarta"
+    },
+    {
+      "Id": 3,
+      "Name": "Alma",
+      "Address": "Karawang"
+    }
+  ]
+}

@@ -1,11 +1,28 @@
+using idstar_web_api.Helper;
 using idstar_web_api.Interface;
 using idstar_web_api.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
+using System.Runtime.CompilerServices;
 
 namespace idstar_web_api {
     public class Program {
         public static void Main(string[] args) {
             var builder = WebApplication.CreateBuilder(args);
+
+            // Ini menggunakan cara Option Pattern, jadi harus di register disini terlebih dahulu.
+            builder.Services.Configure<UserProfile>(builder.Configuration.GetSection("UserProfile"));
+
+            // Ini menggunakan cara Singleton Pattern, jadi harus di register disini terlebih dahulu.
+            var userAddress = new UserAddress();
+            builder.Configuration.Bind("UserAddress", userAddress);
+            builder.Services.AddSingleton(userAddress);
+
+            // Ini adalah cara menambahkan file json sekaligus me-mapping terhadap object List<Users>
+            var dummyUsers = new List<Users>();
+            builder.Configuration.AddJsonFile(new PhysicalFileProvider(Directory.GetCurrentDirectory()),
+                   "DummyData.json", optional: false, reloadOnChange: true).Build().GetSection("UsersData").Bind(dummyUsers);
+            builder.Services.AddSingleton(dummyUsers);
 
             // Add services to the container.
             builder.Services.AddSingleton<INumberGenerator, SequenceNumberService>();
